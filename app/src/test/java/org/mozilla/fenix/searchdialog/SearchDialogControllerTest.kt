@@ -31,6 +31,10 @@ import org.mozilla.fenix.components.metrics.Event
 import org.mozilla.fenix.components.metrics.MetricController
 import org.mozilla.fenix.components.metrics.MetricsUtils
 import org.mozilla.fenix.search.AlertDialogBuilder
+import org.mozilla.fenix.search.SearchDialogController
+import org.mozilla.fenix.search.SearchDialogFragmentDirections.Companion.actionGlobalAddonsManagementFragment
+import org.mozilla.fenix.search.SearchDialogFragmentDirections.Companion.actionGlobalSearchEngineFragment
+import org.mozilla.fenix.search.SearchDialogFragmentStore
 import org.mozilla.fenix.search.SearchFragmentAction
 import org.mozilla.fenix.settings.SupportUtils
 import org.mozilla.fenix.utils.Settings
@@ -140,7 +144,7 @@ class SearchDialogControllerTest {
     @Test
     fun handleAddonsUrlCommitted() {
         val url = "about:addons"
-        val directions = SearchDialogFragmentDirections.actionGlobalAddonsManagementFragment()
+        val directions = actionGlobalAddonsManagementFragment()
 
         controller.handleUrlCommitted(url)
 
@@ -288,8 +292,7 @@ class SearchDialogControllerTest {
 
     @Test
     fun handleClickSearchEngineSettings() {
-        val directions: NavDirections =
-            SearchDialogFragmentDirections.actionGlobalSearchEngineFragment()
+        val directions: NavDirections = actionGlobalSearchEngineFragment()
 
         controller.handleClickSearchEngineSettings()
 

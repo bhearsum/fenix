@@ -70,8 +70,8 @@ class DefaultSearchController(
                 activity.startActivity(Intent(activity, CrashListActivity::class.java))
             }
             "about:addons" -> {
-                val directions = SearchFragmentDirections.actionGlobalAddonsManagementFragment()
-                navController.navigateSafe(R.id.searchFragment, directions)
+                val directions = SearchDialogFragmentDirections.actionGlobalAddonsManagementFragment()
+                navController.navigateSafe(R.id.searchDialogFragment, directions)
             }
             "moz://a" -> openSearchOrUrl(SupportUtils.getMozillaPageUrl(MANIFESTO))
             else -> if (url.isNotBlank()) {
@@ -84,7 +84,7 @@ class DefaultSearchController(
         activity.openToBrowserAndLoad(
             searchTermOrURL = url,
             newTab = store.state.tabId == null,
-            from = BrowserDirection.FromSearch,
+            from = BrowserDirection.FromSearchDialog,
             engine = store.state.searchEngineSource.searchEngine
         )
 
@@ -140,7 +140,7 @@ class DefaultSearchController(
         activity.openToBrowserAndLoad(
             searchTermOrURL = url,
             newTab = store.state.tabId == null,
-            from = BrowserDirection.FromSearch
+            from = BrowserDirection.FromSearchDialog
         )
 
         metrics.track(Event.EnteredUrl(false))
@@ -152,7 +152,7 @@ class DefaultSearchController(
         activity.openToBrowserAndLoad(
             searchTermOrURL = searchTerms,
             newTab = store.state.tabId == null,
-            from = BrowserDirection.FromSearch,
+            from = BrowserDirection.FromSearchDialog,
             engine = store.state.searchEngineSource.searchEngine,
             forceSearch = true
         )
@@ -185,14 +185,14 @@ class DefaultSearchController(
     }
 
     override fun handleClickSearchEngineSettings() {
-        val directions = SearchFragmentDirections.actionGlobalSearchEngineFragment()
-        navController.navigateSafe(R.id.searchFragment, directions)
+        val directions = SearchDialogFragmentDirections.actionGlobalSearchEngineFragment()
+        navController.navigateSafe(R.id.searchDialogFragment, directions)
     }
 
     override fun handleExistingSessionSelected(session: Session) {
         sessionManager.select(session)
         activity.openToBrowser(
-            from = BrowserDirection.FromSearch
+            from = BrowserDirection.FromSearchDialog
         )
     }
 
